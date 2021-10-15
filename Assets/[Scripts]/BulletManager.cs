@@ -7,13 +7,14 @@ public class BulletManager : MonoBehaviour
 {
     public List<GameObject> bulletPool;
 
-    public GameObject bulletPrefab;
-
     public int maxBullets;
+
+    private BulletFactory factory;
     // Start is called before the first frame update
     void Start()
     {
         bulletPool = new List<GameObject>();
+        factory = GetComponent<BulletFactory>();
 
         BuildPool();
     }
@@ -22,7 +23,7 @@ public class BulletManager : MonoBehaviour
     {
         for (int i = 0; i < maxBullets; i++)
         {
-            GameObject newBullet = Instantiate(bulletPrefab);
+            GameObject newBullet = factory.CreateBullet();
             newBullet.transform.SetParent(transform);
             newBullet.SetActive(false);
             bulletPool.Add(newBullet);
@@ -37,7 +38,7 @@ public class BulletManager : MonoBehaviour
                 return bullet;
             }
         }
-        GameObject newBullet = Instantiate(bulletPrefab);
+        GameObject newBullet = factory.CreateBullet();
         newBullet.transform.SetParent(transform);
         bulletPool.Add(newBullet);
 
