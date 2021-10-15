@@ -33,7 +33,7 @@ public class EnemyController : MonoBehaviour
     {
         if(Time.frameCount % frameDelay == 0)
         {
-            bulletManager.SpawnBullet(bulletSpawn.position);
+            bulletManager.SpawnBullet(bulletSpawn.position, BulletType.ENEMY);
         }
     }
 }

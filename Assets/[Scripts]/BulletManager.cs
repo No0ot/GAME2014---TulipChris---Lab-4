@@ -5,49 +5,67 @@ using UnityEngine;
 [System.Serializable]
 public class BulletManager : MonoBehaviour
 {
-    public List<GameObject> bulletPool;
+    public List<GameObject> enemyBulletPool;
+    public List<GameObject> playerBulletPool;
 
-    public int maxBullets;
+    public int enemyMaxBullets;
+    public int playerMaxBullets;
 
     private BulletFactory factory;
     // Start is called before the first frame update
     void Start()
     {
-        bulletPool = new List<GameObject>();
+        enemyBulletPool = new List<GameObject>();
+        playerBulletPool = new List<GameObject>();
         factory = GetComponent<BulletFactory>();
 
-        BuildPool();
     }
 
-    private void BuildPool()
+    private GameObject AddBullet(BulletType type = BulletType.ENEMY)
     {
-        for (int i = 0; i < maxBullets; i++)
-        {
-            GameObject newBullet = factory.CreateBullet();
-            newBullet.transform.SetParent(transform);
-            newBullet.SetActive(false);
-            bulletPool.Add(newBullet);
-        }
-    }
-    public GameObject getBullet()
-    {
-        foreach (GameObject bullet in bulletPool)
-        {
-            if (!bullet.activeInHierarchy)
-            {
-                return bullet;
-            }
-        }
-        GameObject newBullet = factory.CreateBullet();
+        GameObject newBullet = factory.CreateBullet(type);
         newBullet.transform.SetParent(transform);
-        bulletPool.Add(newBullet);
-
+        switch (type)
+        {
+            case BulletType.ENEMY:
+                enemyBulletPool.Add(newBullet);
+                break;
+            case BulletType.PLAYER:
+                playerBulletPool.Add(newBullet);
+                break;
+        }
         return newBullet;
     }
 
-    public void SpawnBullet(Vector3 position)
+    public GameObject getBullet(BulletType type = BulletType.ENEMY)
     {
-        GameObject temp = getBullet();
+        switch (type)
+        {
+            case BulletType.ENEMY:
+                foreach (GameObject bullet in enemyBulletPool)
+                {
+                    if (!bullet.activeInHierarchy)
+                    {
+                        return bullet;
+                    }
+                }
+                break;
+            case BulletType.PLAYER:
+                foreach (GameObject bullet in playerBulletPool)
+                {
+                    if (!bullet.activeInHierarchy)
+                    {
+                        return bullet;
+                    }
+                }
+                break;
+        }
+        return AddBullet(type);
+    }
+
+    public void SpawnBullet(Vector3 position, BulletType type)
+    {
+        GameObject temp = getBullet(type);
         temp.transform.position = position;
         temp.SetActive(true);
     }

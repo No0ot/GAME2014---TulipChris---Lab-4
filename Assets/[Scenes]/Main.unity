@@ -338,9 +338,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1264982820}
+  - component: {fileID: 1264982821}
   - component: {fileID: 1264982819}
   m_Layer: 0
-  m_Name: BulletManager
+  m_Name: GameController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -358,9 +359,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e1aa0c86a907b346994cc8d65988eb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPool: []
-  bulletPrefab: {fileID: 2757115336642610860, guid: fac81eb3cedc10f42b6417446103197f, type: 3}
-  maxBullets: 50
+  enemyBulletPool: []
+  playerBulletPool: []
+  enemyMaxBullets: 0
+  playerMaxBullets: 0
 --- !u!4 &1264982820
 Transform:
   m_ObjectHideFlags: 0
@@ -375,6 +377,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1264982821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1264982818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71272da5b13cf0a48ac7069c54abd3a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyBulletPrefab: {fileID: 2757115336642610860, guid: fac81eb3cedc10f42b6417446103197f, type: 3}
+  playerBulletPrefab: {fileID: 2757115336642610860, guid: e98898f8b82175042931953b4f4c4e97, type: 3}
 --- !u!1001 &1437139655
 PrefabInstance:
   m_ObjectHideFlags: 0
